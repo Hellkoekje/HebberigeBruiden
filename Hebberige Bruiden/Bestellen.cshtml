@@ -1,0 +1,32 @@
+﻿@{
+	Layout = "~/shared/_Layout3.cshtml";
+
+	var id = Request.QueryString["id"];
+	var db = Database.Open("Database");
+	var Product = db.QueryValue ("SELECT Product FROM Producten WHERE Product_id =@0", id);
+	var errorText = "";
+
+
+	if (IsPost)
+	{
+		//var Product = Request.Form["Product"];
+
+		//db.Query("INSERT INTO Producten (Product, Product_token, Bought) VALUES (@0,@1,@2)", Product, Product_token, 0);
+		errorText = "Product ordered succesfully";
+
+	}
+}
+
+<form class="col s12" method="post">
+	<div class="row" style="margin-top:20px;">
+		<div class="input-field col s6">
+			<input type="text" value="@Product" disabled/>
+			<label for="code">Product</label>
+		</div>
+	</div>
+
+	<button class="btn waves-effect waves-light" type="submit">
+		Submit
+		<i class="material-icons right">order</i>
+	</button>
+</form>

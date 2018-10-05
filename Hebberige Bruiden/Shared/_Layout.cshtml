@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	@helper head()
+		{
+			<!--Import Google Icon Font-->
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			<!--Import materialize.css-->
+			<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+
+			<!--Let browser know website is optimized for mobile-->
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		}
+	@head()
+</head>
+
+<body>
+	<nav class="grey darken-4">
+		<!-- Kleur -->
+		<div class="nav-wrapper">
+			<a href="~/Index.cshtml" class="brand-logo center">Smoking & Dress</a> <!-- Naam logo -->
+			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="~/Bruidspaar.cshtml">Login Bride and Groom</a></li>
+				<li><a href="~/Gasten.cshtml">Login Guest</a></li>
+				<li><a href="~/Registeren.cshtml">Register</a></li>
+			</ul>
+			<ul class="side-nav" id="mobile-demo">
+				<li><a href="~/Bruidspaar.cshtml">Login Bride and Groom</a></li>
+				<li><a href="~/Gasten.cshtml">Login Guest</a></li>
+				<li><a href="~/Registeren.cshtml">Register</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+		<!-- Container-->
+		@RenderBody()
+	</div>
+
+
+
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="~/js/materialize.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$(".button-collapse").sideNav();
+			$('.slider').slider();
+		});
+	</script> <!--Initialeert Navbar & Slider-->
+</body>
+</html>

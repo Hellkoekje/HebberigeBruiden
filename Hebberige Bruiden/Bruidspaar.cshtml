@@ -1,0 +1,48 @@
+﻿@using WebMatrix.WebData;
+@{
+	Layout = "~/shared/_Layout.cshtml";
+
+	var username = "";
+	var password = "";
+
+	var errorText = "";
+
+	if (IsPost)
+	{
+		username = Request.Form["username"];
+		password = Request.Form["password"];
+
+		if (WebSecurity.Login(username, password))
+		{
+			Response.Redirect("~/Backend/index.cshtml");
+		}
+
+		else
+		{
+			errorText = "Username and/or Password doesnt exist";
+		}
+	}
+}
+<div class="container">
+	<div class="row">
+		<form class="col s12" method="post">
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="username" name="username" type="text" class="validate">
+					<label for="username">Username</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="password" name="password" type="password" class="validate">
+					<label for="password">Password</label>
+				</div>
+			</div>
+			<p>@errorText</p>
+			<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+				<i class="material-icons right">send</i>
+			</button>
+		</form>
+	</div>
+	<!-- Container-->
+</div>

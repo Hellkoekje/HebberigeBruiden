@@ -1,0 +1,34 @@
+﻿@{
+	Layout = "~/shared/_Layout2.cshtml";
+
+	var db = Database.Open("Database");
+	var Product_token = db.QueryValue("SELECT Token FROM UserProfile WHERE Email =@0",WebSecurity.CurrentUserName);
+	var errorText ="";
+
+
+	if (IsPost)
+	{
+		var Product = Request.Form["Product"];
+
+		db.Query("INSERT INTO Producten (Product, Product_token, Bought) VALUES (@0,@1,@2)", Product, Product_token, 0);
+		errorText = "Product added to the wishinglist of the bride and groom";
+	}
+}
+
+<div class="container">
+	<div class="row">
+		<form class="col s12" style="margin-top:20px;" method="post">
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="Product" name="Product" type="text" class="validate">
+					<label for="Product">Name Gift</label>
+				</div>
+			</div>
+			<p>@errorText</p>
+			<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+				<i class="material-icons right">send</i>.
+			</button>
+		</form>
+	</div>
+	<!-- Container-->
+</div>

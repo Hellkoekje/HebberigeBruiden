@@ -1,0 +1,23 @@
+﻿@{
+	Layout = "~/shared/_Layout.cshtml";
+
+	if (IsPost)
+	{
+		var cijfers = Request.Form["code"];
+		Response.Redirect("~/Wenslijst.cshtml?code="+cijfers);
+	}
+ }
+
+<form class="col s12" method="post">
+	<div class="row" style="margin-top:20px;">
+		<div class="input-field col s6">
+			<input id="code" name="code" type="text" class="validate">
+			<label for="code">Code</label>
+		</div>
+	</div>
+
+	<button class="btn waves-effect waves-light" type="submit">
+		Submit
+		<i class="material-icons right">send</i>
+	</button>
+</form>

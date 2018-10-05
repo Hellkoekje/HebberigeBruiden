@@ -1,0 +1,40 @@
+﻿@{
+	Layout = "~/shared/_Layout3.cshtml";
+
+	var code = Request.QueryString["code"];
+	var db = Database.Open("Database");
+	var Products = db.Query("SELECT * FROM Producten WHERE Product_token =@0",code);
+	var errorText = "";
+
+
+	if (IsPost)
+	{
+		//var Product = Request.Form["Product"];
+
+		//db.Query("INSERT INTO Producten (Product, Product_token, Bought) VALUES (@0,@1,@2)", Product, Product_token, 0);
+		errorText = "";
+
+	}
+}
+
+<div class="row">
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+				<th>Product</th>
+				<th>Priority</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach(var product in Products)
+			{
+			<tr>
+				<td><a href="~/Bestellen.cshtml?id=@product.Product_id">Order</a></td>
+				<td>@product.Product</td>
+				<td></td>
+			</tr>
+			}
+		</tbody>
+	</table>
+</div>

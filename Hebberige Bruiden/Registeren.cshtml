@@ -1,0 +1,66 @@
+﻿@using WebMatrix.WebData;
+@{ 
+	Layout = "~/shared/_Layout.cshtml";
+
+	Random rng = new Random();
+
+	var db = Database.Open("Database");
+	var query = "SELECT Token FROM UserProfile";
+	var token = db.Query(query);
+
+
+
+	var username = "";
+	var password = "";
+	var passwordConfirm = "";
+
+	var errorText = "";
+
+	if (IsPost)
+	{
+		username = Request.Form["username"];
+		password = Request.Form["password"];
+		passwordConfirm = Request.Form["passwordConfirm"];
+
+		if (password == passwordConfirm)
+		{
+			int randomToken = rng.Next(1000, 10000);
+			var update = "UPDATE UserProfile SET Token = @0 WHERE Email = @1";
+
+			WebSecurity.CreateUserAndAccount(username, password, null, false);
+			db.Query(update, randomToken, username);
+			errorText = "The account: " + username + " has been created. with token " + randomToken;
+
+
+		}
+
+		else
+		{
+			errorText = "The password doesnt match";
+		}
+	}
+}
+
+<div class="row">
+	<form class="col s12" style="margin-top:20px;" method="post">
+		<div class="row">
+			<div class="input-field col s12">
+				<input id="username" name="username" type="text" class="validate">
+				<label for="username">Username</label>
+			</div>
+			<div class="input-field col s12">
+				<input id="password" name="password" type="password" class="validate">
+				<label for="password">Password</label>
+			</div>
+			<div class="input-field col s12">
+				<input id="passwordConfirm" name="passwordConfirm" type="password" class="validate">
+				<label for="passwordConfirm">Confirm Password</label>
+			</div>
+			<p>@errorText</p>
+		</div>
+		<button class="btn waves-effect waves-light" type="submit" name="action">
+			Submit
+			<i class="material-icons right">send</i>
+		</button>
+	</form>
+</div>
